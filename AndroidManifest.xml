@@ -25,6 +25,12 @@
             android:label="@string/tituloVentanaLogeo" 
             android:name=".LoginActivity"></activity>
 
+  	<activity
+            android:label="@string/tituloVentanaLogeo" 
+            android:name=".Loginfacebook"></activity>
+        
+        
+
         <!--  Register Activity -->
         <activity
             android:label="@string/tituloVentanaRegistrar" 
