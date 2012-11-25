@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+   
+    <ListPreference
+        android:defaultValue="@string/default_text_value"
+        android:dialogTitle="@string/text_preference"
+        android:entries="@array/colors"
+        android:entryValues="@array/colors"
+        android:key="pref_color"
+        
+        android:title="@string/text_preference" />
+
+    <!--  
+    <CheckBoxPreference
+        android:key="pref_image"
+        android:summary="@string/activity_with_a_little_image"
+        android:title="@string/with_image"
+        android:defaultValue="false" />
+        -->
+    
+</PreferenceScreen>
