@@ -31,6 +31,7 @@ public class Loginfacebook extends Activity
 	
 	/*
 	 * prueba teorica de funcionalidad github
+	 * perrraaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	
