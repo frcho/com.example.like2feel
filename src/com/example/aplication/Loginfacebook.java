@@ -29,7 +29,10 @@ public class Loginfacebook extends Activity
 	private AsyncFacebookRunner mAsyncRunner;
 	public static final String APP_ID = "264102133708872";
 	
-	
+	/*
+	 * prueba teorica de funcionalidad github
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
