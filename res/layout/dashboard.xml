@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="5dip"
             android:paddingTop="5dip" >
-
-            <!-- Logo Start -->
+			
+	            <!-- Logo Start -->
 
             <ImageView
                 android:contentDescription="@string/DescripcionLt"
@@ -32,6 +32,8 @@
 
             <!-- Logo Ends -->
         </LinearLayout>
+        
+        
 
         <!--  Header Ends -->
  
@@ -41,6 +43,8 @@
 		    android:layout_height="90dip"
 		    
 		    android:layout_alignParentBottom="true">
+            
+            
 		</LinearLayout>
         <!-- Footer Ends -->
  
@@ -59,6 +63,13 @@
         	  android:textSize="30dip"
         	  android:gravity="center"
         	  android:layout_marginTop="20dip"/>
+           <TextView
+	        android:layout_height="wrap_content"
+	        android:text="Facebook status: sesión no iniciada"
+	        android:id="@+id/txtFbStatus"
+	        android:textSize="15dip"
+	        android:gravity="center"
+	        android:layout_width="fill_parent"></TextView>
 
 	    <Button
 	        android:id="@+id/btnImg"
@@ -70,6 +81,17 @@
 	        android:textStyle="bold" 
 	        android:layout_marginTop="40dip"/>
 	    
+	    
+	    <com.example.aplication.Facebook.LoginButton
+	        android:id="@+id/btnFbLogin"
+	        android:src="@drawable/login_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="80dip"
+	        />
+	   		 
+	   		 
+	   		 
 	    <Button android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/Salir"

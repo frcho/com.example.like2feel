@@ -2,6 +2,13 @@ package com.example.aplication;
 
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -17,8 +24,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aplication.Facebook.AsyncFacebookRunner;
+import com.example.aplication.Facebook.Facebook;
+import com.example.aplication.Facebook.FacebookError;
+import com.example.aplication.Facebook.LoginButton;
+import com.example.aplication.Facebook.SessionEvents;
+import com.example.aplication.Facebook.SessionStore;
+import com.example.aplication.Facebook.Util;
+import com.example.aplication.Facebook.AsyncFacebookRunner.RequestListener;
+import com.example.aplication.Facebook.SessionEvents.LogoutListener;
 import com.example.aplication.library.UserFunctions;
 
 
@@ -29,6 +46,8 @@ public class DashboardActivity extends Activity
 	Button btnImagen;
 	private RelativeLayout layout;
 	private static PendingIntent pendingIntent;
+	
+	
     
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -37,6 +56,13 @@ public class DashboardActivity extends Activity
         setContentView(R.layout.dashboard);
         //empesarCuentaNotificacion();
         
+        
+        
+        
+
+		
+
+		
         /**
          * Dashboard Screen for the application
          * */        
@@ -89,6 +115,7 @@ public class DashboardActivity extends Activity
         	finish();
         }
     }
+	
   /*  public void empesarCuentaNotificacion()
     {
     	if (pendingIntent == null)

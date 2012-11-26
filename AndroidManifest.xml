@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="16"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
@@ -25,9 +25,7 @@
             android:label="@string/tituloVentanaLogeo" 
             android:name=".LoginActivity"></activity>
 
-  	<activity
-            android:label="@string/tituloVentanaLogeo" 
-            android:name=".Loginfacebook"></activity>
+  	
         
         
 

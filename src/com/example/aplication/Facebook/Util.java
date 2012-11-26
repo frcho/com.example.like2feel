@@ -55,6 +55,8 @@ public final class Util {
      * @param boundary the random string as boundary
      * @return a string of the post body
      */
+	private static boolean ENABLE_LOG=true; 
+	
     public static String encodePostBody(Bundle parameters, String boundary) {
         if (parameters == null) return "";
         StringBuilder sb = new StringBuilder();

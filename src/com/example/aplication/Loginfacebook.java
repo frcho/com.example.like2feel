@@ -37,7 +37,7 @@ public class Loginfacebook extends Activity
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
+		//setContentView(R.layout.login);
 		LoginButton mLoginButton = (LoginButton) findViewById(R.id.btnFbLogin);
 		Facebook mFacebook = new Facebook(APP_ID);
 		mAsyncRunner = new AsyncFacebookRunner(mFacebook);

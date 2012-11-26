@@ -1,6 +1,9 @@
 
 package com.example.aplication;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Calendar;
 
 import org.json.JSONException;
@@ -24,6 +27,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aplication.Facebook.AsyncFacebookRunner;
+import com.example.aplication.Facebook.Facebook;
+import com.example.aplication.Facebook.FacebookError;
+import com.example.aplication.Facebook.LoginButton;
+import com.example.aplication.Facebook.SessionEvents;
+import com.example.aplication.Facebook.SessionStore;
+import com.example.aplication.Facebook.Util;
+import com.example.aplication.Facebook.AsyncFacebookRunner.RequestListener;
+import com.example.aplication.Facebook.SessionEvents.AuthListener;
+import com.example.aplication.Facebook.SessionEvents.LogoutListener;
 import com.example.aplication.library.DatabaseHandler;
 import com.example.aplication.library.UserFunctions;
 
@@ -49,11 +62,69 @@ public class LoginActivity extends Activity {
 	private static String KEY_CREATED_AT = "created_at";
 	
 	private LinearLayout layout;
+	
+	/*
+	 * componentes del boton y etiqueta para login con facebook
+	 * 
+	 */
+	private TextView txtFbStatus;
+	private boolean  facebook_active = false;
+	private AsyncFacebookRunner mAsyncRunner;
+	public static final String APP_ID = "264102133708872";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
+		
+		/*
+		 * inicializacion de los componentes y otros atributos necesarios
+		 */
+		
+		LoginButton mLoginButton = (LoginButton) findViewById(R.id.btnFbLogin);
+		Facebook mFacebook = new Facebook(APP_ID);
+		mAsyncRunner = new AsyncFacebookRunner(mFacebook);
+		txtFbStatus = (TextView) this.findViewById(R.id.txtFbStatus);
+		SessionStore.restore(mFacebook, this);
+		facebook_active = mFacebook.isSessionValid();
+		
+		// fin de la inicializacion
+		
+		/*
+		 * metodos y escuchas para funcionamiento del boton y login 
+		 * mas mensajes de error 
+		 */
+		
+		if (facebook_active) {
+		    updateFbStatus();
+		}
+		SessionEvents.addAuthListener(new AuthListener() {
+		    public void onAuthSucceed() {
+		        updateFbStatus();
+		    }
+		 
+		    
+		    public void onAuthFail(String error) {
+		        txtFbStatus.setText("Facebook status: imposible iniciar sesión " + error);
+		    }
+		});
+		
+		SessionEvents.addLogoutListener(new LogoutListener() {
+	      
+			public void onLogoutFinish() {
+		    txtFbStatus.setText("Facebook status: sesión no iniciada");
+			}
+			
+			public void onLogoutBegin() {
+			txtFbStatus.setText("Facebook status: cerrando sesión...");
+			}
+			});
+		mLoginButton.init(this, mFacebook);
+		
+		//fin metodos necesarios dentrod e onCreate()
+		
+		
+		
 		
 		lblMensaje = (TextView)findViewById(R.id.textView1);
 
@@ -121,6 +192,10 @@ public class LoginActivity extends Activity {
 					
 			}
 		});
+		
+		/*
+		 * 
+		 */
 
 		// Link to Register Screen
 		btnIrARegistrar.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +208,50 @@ public class LoginActivity extends Activity {
 			}
 		});
 	}
+	
+	/*
+	 * metodo updateFbStatus 
+	 * relativo a funcionamiento de login con facebook
+	 * @see android.app.Activity#onStart()
+	 */
+	
+	private void updateFbStatus(){
+	    mAsyncRunner.request("me", new RequestListener() {
+	        
+	        public void onMalformedURLException(MalformedURLException e, Object state) {}
+	 
+	       
+	        public void onIOException(IOException e, Object state) {}
+	 
+	        
+	        public void onFileNotFoundException(FileNotFoundException e, Object state) {}
+	 
+	        
+	        public void onFacebookError(FacebookError e, Object state) {}
+	 
+	        
+	        public void onComplete(String response, Object state) {
+	             try {
+	                    JSONObject json = Util.parseJson(response);
+	                    final String id = json.getString("id");
+	                    final String name = json.getString("name");
+	                    LoginActivity.this.runOnUiThread(new Runnable() {
+	 
+	                        public void run() {
+	                            txtFbStatus.setText("Facebook status: sesión iniciada como " + name + " con el id " + id);
+	                        }
+	                    });
+	                } catch (JSONException e) {
+	                    e.printStackTrace();
+	                } catch (FacebookError e) {
+	                    e.printStackTrace();
+	                }
+	        }
+	    });
+	 
+	}
+	
+	//fin del metodo
 	
 	protected void onStart() 
 	{
